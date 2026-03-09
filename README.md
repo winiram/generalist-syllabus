@@ -1,5 +1,5 @@
 
-# An Alternative Syllabus — On Becoming More Fully Yourself
+# An Alternative Syllabus — On Becoming More Human
 
 A self-directed curriculum for a lifelong learner across psychology, philosophy, technology, music, spirituality, and feminism.
 
