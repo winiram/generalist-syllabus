@@ -3,7 +3,7 @@
 
 A self-directed curriculum for a lifelong learner across psychology, philosophy, technology, music, spirituality, and feminism.
 
-**[View the syllabus →](https://winiram.github.io/my-syllabus)**
+**[View the syllabus →](https://winiram.github.io/generalist-syllabus)**
 
 ---
 
