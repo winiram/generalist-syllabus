@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Alternative Syllabus for Humans</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0d0b;
+    --surface: #161512;
+    --surface2: #1e1c18;
+    --border: #2a2720;
+    --border-bright: #3a3730;
+    --ink: #e8e2d6;
+    --ink-dim: #7a7268;
+    --ink-mid: #a89e90;
+    --saffron: #d4703a;
+    --saffron-dim: rgba(212,112,58,0.15);
+    --saffron-glow: rgba(212,112,58,0.08);
+    --turmeric: #c49a3c;
+    --sage: #7a9e7e;
+
+    --type-book:    #c4a882; --type-book-bg:    rgba(196,168,130,0.12);
+    --type-paper:   #8ab89a; --type-paper-bg:   rgba(138,184,154,0.12);
+    --type-video:   #9b8ec4; --type-video-bg:   rgba(155,142,196,0.12);
+    --type-music:   #c48a72; --type-music-bg:   rgba(196,138,114,0.12);
+    --type-podcast: #72b4b4; --type-podcast-bg: rgba(114,180,180,0.12);
+    --type-website: #b4a872; --type-website-bg: rgba(180,168,114,0.12);
+    --type-essay:   #98b472; --type-essay-bg:   rgba(152,180,114,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── LAYOUT ── */
+  .page-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 40px 120px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 56px 0 52px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* subtle radial glow behind logo */
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -80px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(212,112,58,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 36px;
+  }
+
+  /* ── LOGO ── */
+  .logo-mark {
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .logo-mark svg {
+    width: 72px;
+    height: 72px;
+    display: block;
+  }
+
+  /* ── HEADER TEXT ── */
+  .header-text {}
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 14px;
+    opacity: 0.85;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 7vw, 76px);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  h1 .title-line1 {
+    display: block;
+  }
+
+  h1 .title-alt {
+    display: block;
+    font-style: italic;
+    color: var(--saffron);
+    font-size: clamp(38px, 6.8vw, 74px);
+  }
+
+  h1 .title-meta {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-style: normal;
+    font-size: clamp(10px, 1.1vw, 12px);
+    color: var(--ink-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 18px;
+    font-weight: 400;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+
+  .header-desc {
+    font-size: 16px;
+    color: var(--ink-mid);
+    max-width: 540px;
+    line-height: 1.75;
+    margin-top: 20px;
+  }
+
+  /* mobile: stack logo above text */
+  @media (max-width: 520px) {
+    .header-inner { flex-direction: column; gap: 20px; }
+    .logo-mark svg { width: 52px; height: 52px; }
+  }
+
+  /* ── STICKY TAB BAR ── */
+  .tabs-outer {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: rgba(14,13,11,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -40px;
+    padding: 0 40px;
+  }
+
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 0;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 20px 18px 18px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.18s, border-color 0.18s;
+  }
+
+  .tab-btn:hover { color: var(--ink-mid); }
+
+  .tab-btn.active {
+    color: var(--saffron);
+    border-bottom-color: var(--saffron);
+  }
+
+  /* ── PANELS ── */
+  .tab-panel { display: none; padding-top: 60px; }
+  .tab-panel.active { display: block; }
+
+  /* ── INTRO PANEL ── */
+  .intro-text {
+    font-size: 19px;
+    line-height: 1.9;
+    color: var(--ink-mid);
+    font-style: italic;
+    padding-left: 24px;
+    border-left: 2px solid var(--saffron);
+    margin-bottom: 56px;
+    max-width: 680px;
+  }
+
+  .map-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 20px;
+  }
+
+  .module-map {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .map-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 22px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-align: left;
+  }
+
+  .map-card:hover {
+    border-color: var(--saffron);
+    background: var(--surface2);
+  }
+
+  .map-card .c-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--saffron);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .map-card .c-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .map-card .c-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    color: var(--ink-dim);
+    line-height: 1.6;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── MODULE PANELS ── */
+  .module-header {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 8px;
+  }
+
+  .mod-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--saffron);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .mod-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    padding-left: 50px;
+  }
+
+  .mod-framing {
+    font-size: 16px;
+    color: var(--ink-mid);
+    margin-bottom: 40px;
+    padding-left: 50px;
+    font-style: italic;
+    line-height: 1.75;
+    max-width: 680px;
+  }
+
+  /* ── RESOURCES ── */
+  .resources { padding-left: 50px; }
+
+  .resource {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    align-items: start;
+    transition: background 0.15s;
+  }
+
+  .resource:hover { background: var(--saffron-glow); }
+
+  .rtype {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 3px;
+    white-space: nowrap;
+  }
+
+  .rtype.book    { color: var(--type-book);    background: var(--type-book-bg); }
+  .rtype.paper   { color: var(--type-paper);   background: var(--type-paper-bg); }
+  .rtype.video   { color: var(--type-video);   background: var(--type-video-bg); }
+  .rtype.music   { color: var(--type-music);   background: var(--type-music-bg); }
+  .rtype.podcast { color: var(--type-podcast); background: var(--type-podcast-bg); }
+  .rtype.website { color: var(--type-website); background: var(--type-website-bg); }
+  .rtype.essay   { color: var(--type-essay);   background: var(--type-essay-bg); }
+
+  .r-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .r-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-bright);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .r-title a:hover {
+    color: var(--saffron);
+    border-bottom-color: var(--saffron);
+  }
+
+  .r-author {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    margin-bottom: 8px;
+  }
+
+  .r-note {
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 1.65;
+  }
+
+  .r-note em {
+    color: var(--saffron);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ── SUBMIT PANEL ── */
+  .submit-intro {
+    font-size: 17px;
+    color: var(--ink-mid);
+    font-style: italic;
+    line-height: 1.75;
+    margin-bottom: 40px;
+    max-width: 600px;
+    padding-left: 24px;
+    border-left: 2px solid var(--saffron);
+  }
+
+  .submit-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-field { display: flex; flex-direction: column; gap: 8px; }
+  .form-field.full { grid-column: 1 / -1; }
+
+  .form-field label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    opacity: 0.85;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 16px;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  .form-field input::placeholder,
+  .form-field textarea::placeholder { color: var(--ink-dim); }
+
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--saffron);
+    background: var(--surface2);
+  }
+
+  .form-field select option { background: #1e1c18; color: var(--ink); }
+
+  .form-field textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.6;
+  }
+
+  .form-submit {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 8px;
+  }
+
+  .submit-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    background: var(--saffron);
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.1s;
+  }
+
+  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:active { transform: scale(0.98); }
+
+  .submit-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-dim);
+    line-height: 1.65;
+  }
+
+  .form-success {
+    display: none;
+    padding: 32px;
+    text-align: center;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--turmeric);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  /* ── CLOSING PANEL ── */
+  .closing-text p {
+    font-size: 18px;
+    color: var(--ink-mid);
+    line-height: 1.85;
+    max-width: 660px;
+    margin-bottom: 20px;
+  }
+
+  .stamp {
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--border-bright);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .page-wrap { padding: 0 20px 80px; }
+    .tabs-outer { margin: 0 -20px; padding: 0 20px; }
+    .tab-btn { padding: 16px 12px 14px; font-size: 9px; }
+    .mod-subtitle, .mod-framing, .resources { padding-left: 0; }
+    .resource { grid-template-columns: 1fr; gap: 8px; }
+    .module-map { grid-template-columns: 1fr; }
+    .submit-form { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .tabs-outer { display: none; }
+    .tab-panel { display: block; }
+    .submit-section { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+
+      <!-- LOGO MARK -->
+      <div class="logo-mark">
+        <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="An Alternative Syllabus logo">
+          <circle cx="36" cy="36" r="34" stroke="#3a3730" stroke-width="1"/>
+          <path d="M 10 36 A 26 26 0 1 1 62 36" stroke="#d4703a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="36" y1="18" x2="36" y2="54" stroke="#d4703a" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="36" y1="24" x2="18" y2="30" stroke="#a89e90" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+          <line x1="36" y1="30" x2="18" y2="36" stroke="#a89e90" stroke-width="0.9" stroke-linecap="round" opacity="0.55"/>
+          <line x1="36" y1="36" x2="18" y2="42" stroke="#a89e90" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+          <line x1="36" y1="42" x2="18" y2="48" stroke="#a89e90" stroke-width="0.9" stroke-linecap="round" opacity="0.25"/>
+          <line x1="36" y1="24" x2="54" y2="30" stroke="#c49a3c" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+          <line x1="36" y1="30" x2="54" y2="36" stroke="#c49a3c" stroke-width="0.9" stroke-linecap="round" opacity="0.55"/>
+          <line x1="36" y1="36" x2="54" y2="42" stroke="#c49a3c" stroke-width="0.9" stroke-linecap="round" opacity="0.4"/>
+          <line x1="36" y1="42" x2="54" y2="48" stroke="#c49a3c" stroke-width="0.9" stroke-linecap="round" opacity="0.25"/>
+          <circle cx="36" cy="17" r="2.2" fill="#d4703a"/>
+          <path d="M 20 52 A 18 18 0 0 0 52 52" stroke="#c49a3c" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <!-- TITLE BLOCK -->
+      <div class="header-text">
+        <h1>
+          <span class="title-line1">An Alternative</span>
+          <span class="title-alt">Syllabus for Humans</span>
+
+        </h1>
+        <p class="header-desc">Most of what we were taught reflects a narrow slice of human knowledge — Western, patriarchal, built to serve a particular kind of power. This syllabus is a deliberate correction: ancient philosophy alongside tech criticism, mystical poetry alongside feminist theory, the Stoics alongside Thich Nhat Hanh. The goal is not to finish it. The goal is to become harder to fool — including by yourself.</p>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- TAB BAR -->
+  <div class="tabs-outer">
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="intro"   role="tab">Overview</button>
+      <button class="tab-btn" data-tab="m1"  role="tab">01 · Music & Mind</button>
+      <button class="tab-btn" data-tab="m2"  role="tab">02 · Inner Life & Sacred Texts</button>
+      <button class="tab-btn" data-tab="m3"  role="tab">03 · Tech & Society</button>
+      <button class="tab-btn" data-tab="m4"  role="tab">04 · Feminism</button>
+      <button class="tab-btn" data-tab="m5"  role="tab">05 · Diaspora</button>
+      <button class="tab-btn" data-tab="m6"  role="tab">06 · How to Think</button>
+      <button class="tab-btn" data-tab="m7"  role="tab">07 · Synthesis</button>
+      <button class="tab-btn" data-tab="m8"  role="tab">08 · Money</button>
+      <button class="tab-btn" data-tab="m9"  role="tab">09 · Caste & Race</button>
+      <button class="tab-btn" data-tab="submit" role="tab">✦ Suggest</button>
+    </div>
+  </div>
+
+  <!-- ══════════ INTRO PANEL ══════════ -->
+  <div class="tab-panel active" id="tab-intro">
+
+    <p class="map-heading">Nine Modules</p>
+    <div class="module-map">
+      <button class="map-card" data-tab="m1">
+        <div class="c-num">01</div>
+        <div class="c-title">The Mind That Listens</div>
+        <div class="c-sub">Music · Cognition · Hindustani Classical · Neuroscience</div>
+      </button>
+      <button class="map-card" data-tab="m2">
+        <div class="c-num">02</div>
+        <div class="c-title">The Examined Self & Sacred Texts</div>
+        <div class="c-sub">Psychology · Spirituality · Indian Scriptures · Rumi · Eckhart · Stoics · Dickinson · Thich Nhat Hanh</div>
+      </button>
+      <button class="map-card" data-tab="m3">
+        <div class="c-num">03</div>
+        <div class="c-title">The Machine & The Human</div>
+        <div class="c-sub">Sociology of Technology · Tech Criticism · AI & Power</div>
+      </button>
+      <button class="map-card" data-tab="m4">
+        <div class="c-num">04</div>
+        <div class="c-title">Feminist Thought</div>
+        <div class="c-sub">Feminism · Intersectionality · Philosophy · Gender in Tech</div>
+      </button>
+      <button class="map-card" data-tab="m5">
+        <div class="c-num">05</div>
+        <div class="c-title">Identity, Diaspora & the Translated Self</div>
+        <div class="c-sub">Postcolonial Theory · Diaspora Studies · Pico Iyer · Philosophy of Identity</div>
+      </button>
+      <button class="map-card" data-tab="m6">
+        <div class="c-num">06</div>
+        <div class="c-title">How to Think</div>
+        <div class="c-sub">Philosophy · Epistemology · Behavioral Economics · Logic · Cognitive Linguistics</div>
+      </button>
+      <button class="map-card" data-tab="m7">
+        <div class="c-num">07</div>
+        <div class="c-title">Synthesis</div>
+        <div class="c-sub">Cross-disciplinary · Capstone Reading</div>
+      </button>
+      <button class="map-card" data-tab="m8">
+        <div class="c-num">08</div>
+        <div class="c-title">Money, Power & Financial Literacy</div>
+        <div class="c-sub">Personal Finance · Wealth · Investing · Women & Money</div>
+      </button>
+      <button class="map-card" data-tab="m9">
+        <div class="c-num">09</div>
+        <div class="c-title">Caste, Race & the Architecture of Inequality</div>
+        <div class="c-sub">Ambedkar · Wilkerson · Yengde · Dalit Writing · Anti-caste Thought</div>
+      </button>
+      <button class="map-card" data-tab="submit">
+        <div class="c-num">✦</div>
+        <div class="c-title">Suggest a Resource</div>
+        <div class="c-sub">This syllabus is a living document</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════ MODULE 1 ══════════ -->
+  <div class="tab-panel" id="tab-m1">
+    <div class="module-header">
+      <span class="mod-num">01</span>
+      <h2>The Mind That Listens — Music, Cognition & Consciousness</h2>
+    </div>
+    <div class="mod-subtitle">Psychology · Philosophy · Hindustani Classical</div>
+    <div class="mod-framing">
+      You have lived inside Hindustani classical music your whole life. This module asks: what is actually happening — neurologically, philosophically, spiritually — when you listen, practice, or improvise? It takes your existing knowledge seriously as a site of inquiry.
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">This Is Your Brain on Music</div>
+          <div class="r-author">Daniel J. Levitin</div>
+          <div class="r-note">A neuroscientist and former record producer explains how music is processed in the brain. Read it critically — his examples are Western-centric, but the cognitive science is solid. <em>Ask: what does he miss about raga grammar and time cycles?</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Music and the Mind</div>
+          <div class="r-author">Anthony Storr</div>
+          <div class="r-note">A Jungian psychiatrist examines why music matters so profoundly to human experience. Explores music as a developmental, emotional, and spiritual necessity — not mere entertainment.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Ragas of North India</div>
+          <div class="r-author">Walter Kaufmann</div>
+          <div class="r-note">Dense and encyclopedic. Use it as a reference alongside your practice — seeing the structure you already know described analytically can be revelatory.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype paper">Paper</span></div>
+        <div>
+          <div class="r-title"><a href="https://psycnet.apa.org/record/2001-05139-000" target="_blank" rel="noopener">Music and Emotion: Theory and Research</a></div>
+          <div class="r-author">Juslin & Sloboda (eds.) — Oxford University Press, 2001</div>
+          <div class="r-note">A foundational anthology. The chapter on "emotional contagion" is particularly striking — it explains why a certain alap can feel like grief you didn't know you had.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype paper">Paper</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.jstor.org/stable/843078" target="_blank" rel="noopener">Aesthetic Emotion and Music (Rasa Theory)</a></div>
+          <div class="r-author">Various — search JSTOR: "raga rasa affect"</div>
+          <div class="r-note">The literature on how ragas embody emotional and temporal states (rasa theory) connects directly to both aesthetics and psychology. Bharata Muni's Natyashastra predates Western affective science by two millennia.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype video">Video</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.youtube.com/watch?v=R_At8AVNkE0" target="_blank" rel="noopener">Music and the Brain — Robert Zatorre (Montreal Neurological Institute)</a></div>
+          <div class="r-author">YouTube · Royal Institution lecture</div>
+          <div class="r-note">Zatorre's research on music and dopamine is transformative. His experiments on "chills" during music will change how you hear your own reactions to a particularly beautiful meend.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype video">Video</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.youtube.com/watch?v=2IP6HVNK2jI" target="_blank" rel="noopener">The Neuroscience of Music — TED-Ed</a></div>
+          <div class="r-author">YouTube · TED-Ed</div>
+          <div class="r-note">A tight, accessible 5-minute overview of what happens in the brain during musical listening — useful primer before Zatorre's longer lecture.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype music">Music</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.youtube.com/watch?v=uOJ-6pLRsM0" target="_blank" rel="noopener">Raga Yaman — Pandit Bhimsen Joshi (Live)</a></div>
+          <div class="r-author">YouTube · ITC Sangeet Research Academy archival</div>
+          <div class="r-note">Listen not as a student, but as an analyst. Where does time dilate? Where does the raga breathe? Pair with your reading on music cognition and notice what theory can and cannot explain.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.musicandscience.net" target="_blank" rel="noopener">Music & Science (SAGE open-access journal)</a></div>
+          <div class="r-author">musicandscience.net</div>
+          <div class="r-note">Peer-reviewed, fully open-access journal covering music cognition, emotion, and neuroscience. A reliable source for going deeper after the books.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ MODULE 2 ══════════ -->
+  <div class="tab-panel" id="tab-m2">
+    <div class="module-header">
+      <span class="mod-num">02</span>
+      <h2>The Examined Self — Psychology, Spirituality & Sacred Texts</h2>
+    </div>
+    <div class="mod-subtitle">Psychology · Contemplative Practice · Indian Scriptures · Sufi Poetry · Mysticism · Buddhist Practice · Stoicism · Poetry</div>
+    <div class="mod-framing">
+      You live between frameworks — the rationalist, quantified culture of Silicon Valley and a tradition of spiritual practice that refuses to be measured. This module refuses to resolve that tension. It sits inside it. It moves from rigorous psychological inquiry into the texts humans have reached for when ordinary language fails — when grief, joy, longing, or awe exceeds what prose can hold. Read slowly. Return often.
+    </div>
+
+    <div class="resources">
+
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Yoga Sutras of Patanjali</div>
+          <div class="r-author">Swami Satchidananda (trans. & commentary)</div>
+          <div class="r-note">The classical psychology of the Indian tradition. Citta vritti — fluctuations of the mind — is more rigorous as a cognitive framework than many modern accounts. Read alongside contemporary psychology.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://archive.org/details/YogaVasisthaEnglish" target="_blank" rel="noopener">The Yoga Vasishtha</a></div>
+          <div class="r-author">Attributed to Valmiki · Best edition: Vasistha's Yoga, trans. Swami Venkatesananda (SUNY Press) · Free abridged text on Archive.org</div>
+          <div class="r-note">A discourse on consciousness, time, and the nature of the world as dream — Advaita Vedanta at its most expansive and poetic. Do not read it sequentially. Open it anywhere.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Bhagavatam (Srimad Bhagavatam)</div>
+          <div class="r-author">Trans. various · Recommended: C. L. Goswami & M. A. Shastri abridged edition</div>
+          <div class="r-note">Twelve books of cosmology, mythology, and devotional philosophy. Start with the Tenth Book — Krishna's life, narrated with lyrical intensity unmatched in Sanskrit literature. Not a text you master; one you grow into.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.sacred-texts.com/hin/gita/index.htm" target="_blank" rel="noopener">The Bhagavad Gita</a></div>
+          <div class="r-author">Trans. various · Recommended: Barbara Stoler Miller (Bantam) for poetry; Georg Feuerstein for scholarship · Free text at sacred-texts.com</div>
+          <div class="r-note">Eighteen chapters on duty, action, and the nature of the self — delivered on a battlefield to a man paralysed by an impossible choice. Not a book to agree or disagree with. A book to argue with, for a lifetime.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Burn Down Your House: Provocations from Kabir</div>
+          <div class="r-author">Shabnam Virmani · Speaking Tiger Books, 2024</div>
+          <div class="r-note">Virmani's two-decade journey with Kabir's poetry — across Bhakti singers, oral traditions, and Sufi communities. Kabir was a 15th-century weaver-poet who refused every religious boundary. A living commentary on the Sutras.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://archive.org/details/bijakofkabir" target="_blank" rel="noopener">The Bijak of Kabir</a></div>
+          <div class="r-author">Trans. Linda Hess & Shukdev Singh · Oxford University Press · Free on Archive.org</div>
+          <div class="r-note">The most important surviving collection of Kabir's verses — deliberately abrasive, mocking pandits and mullahs alike. The Sakhi couplets read best alongside the Gita: opposite ends of the Indian devotional spectrum.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Essential Rumi</div>
+          <div class="r-author">Trans. Coleman Barks · HarperOne</div>
+          <div class="r-note">Barks re-hears Rumi as living voice rather than museum artifact. The poems on longing and the reed flute cut from the reed bed will resonate directly with what you already know about how music carries feeling that language cannot.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Rumi: The Guest House & Other Poems</div>
+          <div class="r-author">Trans. Jawid Mojaddedi · Oxford World's Classics</div>
+          <div class="r-note">More precise and closer to the Persian than Barks. The "Guest House" poem — treating each difficulty as an honored visitor — is one of the most therapeutically useful pieces of literature in any tradition.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Meister Eckhart: The Essential Sermons, Commentaries, Treatises, and Defense</div>
+          <div class="r-author">Trans. Edmund Colledge & Bernard McGinn · Paulist Press</div>
+          <div class="r-note">A 13th-century Dominican mystic who taught that beneath all particular being is a groundless ground, a silence prior to all names. His proximity to Advaita Vedanta — which he almost certainly never read — is remarkable.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://classics.mit.edu/Antoninus/meditations.html" target="_blank" rel="noopener">Meditations</a></div>
+          <div class="r-author">Marcus Aurelius · Free at MIT Classics · Best modern trans: Gregory Hays (Modern Library)</div>
+          <div class="r-note">A Roman emperor's private notebook, never intended for publication — daily reminders that most of what troubles us is opinion, not fact. Gregory Hays's translation reads as direct, urgent speech.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.gutenberg.org/ebooks/4906" target="_blank" rel="noopener">Letters from a Stoic (Epistulae Morales)</a></div>
+          <div class="r-author">Seneca · Free on Project Gutenberg · Best trans: Robin Campbell (Penguin Classics)</div>
+          <div class="r-note">More personal and warmer than Marcus — a conversation about how to live. On time, friendship, and the fear of death. "On the Shortness of Life" is eight pages that will reorganize your sense of what matters.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.poetryfoundation.org/poets/emily-dickinson" target="_blank" rel="noopener">The Complete Poems of Emily Dickinson</a></div>
+          <div class="r-author">Emily Dickinson · Free at Poetry Foundation · Best print edition: Thomas H. Johnson (Little, Brown)</div>
+          <div class="r-note">Nearly 1,800 poems — some of the most precise writing about consciousness, death, and God in the English language. Start with: "Because I could not stop for Death," "The Brain is wider than the Sky," "Tell all the truth but tell it slant."</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">How to Love / How to Fight / How to Relax / How to Sit / How to Walk</div>
+          <div class="r-author">Thich Nhat Hanh · Parallax Press · The "How To" series</div>
+          <div class="r-note">Five slim books, each built around a single practice. <em>How to Love</em> redefines love as understanding. <em>How to Fight</em> is about transforming anger without suppressing it. Begin wherever you are pulled; each is complete in itself.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Miracle of Mindfulness</div>
+          <div class="r-author">Thich Nhat Hanh · Beacon Press</div>
+          <div class="r-note">Originally a letter to a fellow monk — it introduced mindfulness to the Western world before the word became an industry. Read this first if you want context; the shorter "How To" books if you want immediate practice.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Waking Up: A Guide to Spirituality Without Religion</div>
+          <div class="r-author">Sam Harris</div>
+          <div class="r-note">A Western rationalist trying to account for meditative experience without metaphysics. Read Harris, then read the critiques from Buddhist scholars like B. Alan Wallace. The debate is more interesting than either position alone.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Untethered Soul</div>
+          <div class="r-author">Michael A. Singer</div>
+          <div class="r-note">Less rigorous than other texts here, but unusually good at articulating the observer-self distinction — the idea that you are the one watching the mind, not the mind itself. A useful bridge between pop-psychology and deeper philosophy.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Psychology of Religion and Coping</div>
+          <div class="r-author">Kenneth I. Pargament</div>
+          <div class="r-note">Rigorous empirical psychology of how spiritual practices function as genuine coping mechanisms — not illusion, but psychic events with measurable effects. An important counterweight to secular reductionism.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype paper">Paper</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.atpweb.org/jtparchive/trps-01-69-01-001.pdf" target="_blank" rel="noopener">Altered States of Consciousness (1969)</a></div>
+          <div class="r-author">Charles Tart — Journal of Transpersonal Psychology</div>
+          <div class="r-note">Tart argues that different states of consciousness are qualitatively distinct systems, not simply degrees of wakefulness. A rigorous reframing of what contemplative traditions have always claimed.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype video">Video</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.ted.com/talks/david_chalmers_how_do_you_explain_consciousness" target="_blank" rel="noopener">How Do You Explain Consciousness? — David Chalmers</a></div>
+          <div class="r-author">TED · 18 min</div>
+          <div class="r-note">The best short introduction to why consciousness is philosophically devastating for materialist science. Chalmers frames the "hard problem" with clarity — essential context for engaging seriously with spirituality and psychology.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://onbeing.org/series/podcast/" target="_blank" rel="noopener">On Being — with Krista Tippett</a></div>
+          <div class="r-author">onbeing.org · Free archive</div>
+          <div class="r-note">Start with Bessel van der Kolk on trauma, Robin Wall Kimmerer on indigenous knowledge, and V.V. Raman on science and spirituality. The archive is vast — use search to find the intersections that matter to you.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://themarginalian.org" target="_blank" rel="noopener">The Marginalian</a></div>
+          <div class="r-author">Maria Popova · themarginalian.org · Free, reader-supported</div>
+          <div class="r-note">The most sustained single-person project curating connections between literature, science, philosophy, and art. Her essays on Dickinson, Rumi, and Marcus Aurelius are among the best entry points to each of those figures.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ MODULE 3 ══════════ -->
+  <div class="tab-panel" id="tab-m3">
+    <div class="module-header">
+      <span class="mod-num">03</span>
+      <h2>The Machine & The Human — Technology, Society & Power</h2>
+    </div>
+    <div class="mod-subtitle">Sociology of Technology · Tech Criticism · Philosophy of Technology</div>
+    <div class="mod-framing">
+      You work inside the machine. This module helps you see it from the outside — not to leave it, but to understand what you are part of. The best tech criticism is not anti-technology. It is anti-naïve.
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Age of Surveillance Capitalism</div>
+          <div class="r-author">Shoshana Zuboff</div>
+          <div class="r-note">The definitive sociological account of how behavioral data became the raw material of a new economic logic. Dense and demanding, but repays close reading. <em>This book will permanently change how you see the products you work on.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Invisible Women: Data Bias in a World Designed for Men</div>
+          <div class="r-author">Caroline Criado Perez</div>
+          <div class="r-note">Meticulously evidenced account of how the default human in data, product design, medicine, and urban planning is male — and the costs of that invisibility. As a woman building tech, this is both professional and personal reading.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Race After Technology</div>
+          <div class="r-author">Ruha Benjamin</div>
+          <div class="r-note">Introduces the "New Jim Code" — how algorithmic systems reproduce racial inequity under the guise of neutrality. Essential for anyone building products at scale. Connects to questions of whose data, whose values, whose future.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype essay">Essay</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.jstor.org/stable/20024652" target="_blank" rel="noopener">Do Artifacts Have Politics? (1980)</a></div>
+          <div class="r-author">Langdon Winner — Daedalus, Vol. 109</div>
+          <div class="r-note">Eight pages that changed how the humanities thinks about technology. Winner argues that technologies embed political values and power relations — they are never neutral. Read it in one sitting.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype essay">Essay</span></div>
+        <div>
+          <div class="r-title"><a href="https://monoskop.org/images/4/4b/Haraway_Donna_1985_A_Manifesto_for_Cyborgs_Science_Technology_and_Socialist_Feminism_in_the_1980s.pdf" target="_blank" rel="noopener">A Cyborg Manifesto (1985)</a></div>
+          <div class="r-author">Donna Haraway — Socialist Review</div>
+          <div class="r-note">One of the most important essays of the 20th century. Haraway argues for the cyborg as a figure that refuses the binaries of nature/culture, human/machine, self/other. Transgressive, joyful, and rigorous. Free PDF.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype video">Video</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.youtube.com/watch?v=uaaC57tcci0" target="_blank" rel="noopener">Coded Bias — Documentary (trailer & discussion)</a></div>
+          <div class="r-author">YouTube · Netflix / POV documentary</div>
+          <div class="r-note">Joy Buolamwini's investigation into facial recognition bias. Her research showing dramatically lower accuracy for darker-skinned women is landmark work. Pair with her <a href="https://www.ted.com/talks/joy_buolamwini_how_i_m_fighting_bias_in_algorithms" target="_blank" rel="noopener">TED talk</a> (free).</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://techwontsave.us" target="_blank" rel="noopener">Tech Won't Save Us — Paris Marx</a></div>
+          <div class="r-author">techwontsave.us · Free</div>
+          <div class="r-note">Consistently rigorous left-critical tech analysis. Best episodes: Safiya Umoja Noble (search bias), Kate Crawford (AI and power), Ben Tarnoff (tech and labor). Not ideologically monolithic — guests genuinely disagree.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://ajl.org" target="_blank" rel="noopener">Algorithmic Justice League</a></div>
+          <div class="r-author">ajl.org · Founded by Joy Buolamwini</div>
+          <div class="r-note">Research, advocacy, and accessible explainers on bias in AI systems. Bridges academic research and activist practice. A resource you'll return to frequently.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://datasociety.net/library/" target="_blank" rel="noopener">Data & Society Research Library</a></div>
+          <div class="r-author">datasociety.net · Open access</div>
+          <div class="r-note">Freely downloadable reports on the social implications of data-centric technologies. One of the most reliable sources for current, rigorous tech-society research.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Staying with the Trouble: Making Kin in the Chthulucene</div>
+          <div class="r-author">Donna Haraway · Duke University Press, 2016</div>
+          <div class="r-note">Haraway argues against both techno-optimism and despair — proposing instead that we learn to live inside the damage without either fixing it away or giving up. Her concept of "making kin" across species, disciplines, and worldviews is one of the most generative ideas in contemporary theory. <em>Pair with Braiding Sweetgrass in Module 06.</em></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-panel" id="tab-m4">
+    <div class="module-header">
+      <span class="mod-num">04</span>
+      <h2>Feminist Thought & The Life We Actually Live</h2>
+    </div>
+    <div class="mod-subtitle">Feminism · Intersectionality · Philosophy · Sociology</div>
+    <div class="mod-framing">
+      Feminist theory at its best is not a political position — it is an epistemology. It asks: who gets to produce knowledge, about whom, for whose benefit? This module moves from foundational texts to the questions closest to your own life.
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Feminist Theory: From Margin to Center</div>
+          <div class="r-author">bell hooks</div>
+          <div class="r-note">hooks argues that feminist theory built from the experience of the most marginalized women produces better, more truthful theory. As someone who navigates multiple margins simultaneously, this framing will feel clarifying.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Feminism Without Borders</div>
+          <div class="r-author">Chandra Talpade Mohanty</div>
+          <div class="r-note">An Indian feminist scholar critiques Western feminism's tendency to construct a monolithic "Third World Woman" and argues for a genuinely transnational feminism. As a South Indian woman who has lived both contexts, her analysis will resonate specifically.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Second Sex</div>
+          <div class="r-author">Simone de Beauvoir</div>
+          <div class="r-note">Don't try to read it all. Start with the introduction ("One is not born, but rather becomes, a woman") and Part IV. De Beauvoir's framework of woman as "Other" prefigures everything from Haraway to Criado Perez.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype essay">Essay</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.racialequitytools.org/resourcefiles/mapping-margins.pdf" target="_blank" rel="noopener">Mapping the Margins: Intersectionality, Identity Politics, and Violence Against Women of Color (1991)</a></div>
+          <div class="r-author">Kimberlé Crenshaw — Stanford Law Review · Free PDF</div>
+          <div class="r-note">The essay that introduced intersectionality as an analytical framework. Crenshaw shows how Black women fall through the gaps between race-discrimination law and sex-discrimination law. Foundational. Free online.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype video">Video</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.ted.com/talks/kimberle_crenshaw_the_urgency_of_intersectionality" target="_blank" rel="noopener">The Urgency of Intersectionality — Kimberlé Crenshaw</a></div>
+          <div class="r-author">TED · 19 min · Free</div>
+          <div class="r-note">Crenshaw makes her academic framework visceral and immediate through real case studies. One of the best TED talks ever made.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Brotopia: Breaking Up the Boys' Club of Silicon Valley</div>
+          <div class="r-author">Emily Chang</div>
+          <div class="r-note">A reported account of Silicon Valley's culture of sexism. Read as sociology alongside the theoretical texts — the names and companies will be familiar. The distance between theory and your lived experience will shrink considerably.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.stitcher.com/show/the-feminist-frequency-radio" target="_blank" rel="noopener">Feminist Frequency Radio</a></div>
+          <div class="r-author">Free on all podcast platforms</div>
+          <div class="r-note">Focused on gender representation in media and technology. Anita Sarkeesian's work on women in games is a gateway to broader questions about whose stories get told and how.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ MODULE 5 ══════════ -->
+  <div class="tab-panel" id="tab-m5">
+    <div class="module-header">
+      <span class="mod-num">05</span>
+      <h2>Identity, Diaspora & the Translated Self</h2>
+    </div>
+    <div class="mod-subtitle">Postcolonial Theory · Diaspora Studies · Philosophy of Identity</div>
+    <div class="mod-framing">
+      You crossed an ocean in 2014 and carry at least two cultures in your nervous system. This module is about what that means — philosophically, psychologically, politically — and what unique forms of knowledge it produces.
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Location of Culture</div>
+          <div class="r-author">Homi K. Bhabha</div>
+          <div class="r-note">Bhabha's concept of "the third space" — the hybrid space between cultures that migrants inhabit — is one of the most useful frameworks for understanding your own experience. Dense, but worth the effort.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Namesake</div>
+          <div class="r-author">Jhumpa Lahiri</div>
+          <div class="r-note">Fiction as phenomenology. Lahiri renders the interior experience of South Asian diaspora — the grief and freedom of translation — more precisely than most academic texts. Read it as philosophy, not as comfort.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Orientalism</div>
+          <div class="r-author">Edward Said</div>
+          <div class="r-note">Said's account of how the West constructed "the East" as its exotic, irrational other — and how that construction served imperial power. Read the introduction and Part I at minimum. <em>Then notice where you have unconsciously adopted the Western gaze toward your own culture.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Wretched of the Earth</div>
+          <div class="r-author">Frantz Fanon</div>
+          <div class="r-note">Fanon on the psychological violence of colonialism — how it is internalized, reproduced, and resisted. Chapter 5 is a devastating account of how political structures damage psyches. Foundational for understanding South Asia's modern history.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype essay">Essay</span></div>
+        <div>
+          <div class="r-title"><a href="https://archive.org/details/can-the-subaltern-speak-gayatri-chakravorty-spivak" target="_blank" rel="noopener">Can the Subaltern Speak? (1988)</a></div>
+          <div class="r-author">Gayatri Chakravorty Spivak · Free via Archive.org</div>
+          <div class="r-note">Spivak asks whether those systematically silenced by colonialism can make themselves heard — and on whose terms. Difficult, important, and unexpectedly personal once you sit with it.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://open.spotify.com/show/1S8DxRxTZBD53vPepkDPuV" target="_blank" rel="noopener">Desi Standard Time</a></div>
+          <div class="r-author">Spotify · Free</div>
+          <div class="r-note">Thoughtful conversations about South Asian diaspora identity — negotiating tradition and modernity, caste, queerness, mental health. Less academic than the readings above, but an important voice from inside the community.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.browngirltherapy.com/podcast" target="_blank" rel="noopener">Brown Girl Therapy Podcast</a></div>
+          <div class="r-author">browngirltherapy.com · Free</div>
+          <div class="r-note">Sangeeta Pillai and Sahaj Kohli on mental health for South Asian women — covering intergenerational trauma, family dynamics, identity, and the particular exhaustion of being a high-achieving immigrant woman. Grounded and genuine.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Aflame: Learning from Silence</div>
+          <div class="r-author">Pico Iyer · 2024</div>
+          <div class="r-note">Iyer — born in Oxford to Indian parents, raised in California, living in rural Japan for nearly four decades — has made a life's work of inhabiting the spaces between cultures. <em>Aflame</em> is his most interior book: a meditation on silence, monastic life, and what it means to be lit from within rather than consumed. For someone who practices Hindustani classical music and navigates Silicon Valley, Iyer's particular stillness feels like a road less taken — and worth knowing exists.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Half Known Life: In Search of Paradise</div>
+          <div class="r-author">Pico Iyer · 2023</div>
+          <div class="r-note">Iyer travels from Iran to North Korea to the Dalai Lama's Himalayas to Japan's temples, asking where paradise might be found — and whether the search itself is the point. The book arrives at a quietly radical conclusion: that peace is not a destination but a way of attending to what's already here. Beautifully written, quietly devastating.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Autumn Light: Season of Fire and Farewells</div>
+          <div class="r-author">Pico Iyer · 2019</div>
+          <div class="r-note">A meditation on impermanence, aging parents, and marriage — set against the backdrop of Japan's autumn maple season. Iyer's great subject is how to hold on to what matters while knowing everything falls away. The book asks the question Japan asks every autumn: how do you love something precisely because it is transient? <em>A natural companion to the Thich Nhat Hanh books in Module 09.</em></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="tab-panel" id="tab-m6">
+    <div class="module-header">
+      <span class="mod-num">06</span>
+      <h2>How to Think — Philosophy as Practice</h2>
+    </div>
+    <div class="mod-subtitle">Philosophy · Epistemology · Ethics · Cognitive Linguistics</div>
+    <div class="mod-framing">
+      This module is less about philosophy's content and more about what philosophy does — how it sharpens thinking, surfaces hidden assumptions, and gives you tools to interrogate ideas rather than just receive them. These are books you return to, not books you finish.
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Gödel, Escher, Bach: An Eternal Golden Braid</div>
+          <div class="r-author">Douglas Hofstadter</div>
+          <div class="r-note">A Pulitzer Prize-winning exploration of self-reference, consciousness, and the nature of mind — through mathematics, music, and visual art. For someone with your combination of interests, this is essential. Start with the dialogues between Achilles and the Tortoise.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Braiding Sweetgrass</div>
+          <div class="r-author">Robin Wall Kimmerer</div>
+          <div class="r-note">A botanist and Potawatomi Nation member argues that Western science and indigenous epistemologies illuminate different truths — and that we need both. Deeply relevant to the spirituality-science tension running through your interests.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Women, Fire, and Dangerous Things</div>
+          <div class="r-author">George Lakoff</div>
+          <div class="r-note">Lakoff's cognitive linguistics shows that the categories we think in are not neutral — they are embodied, culturally shaped, and ideologically loaded. How we categorize is how we see. Essential foundation for both tech ethics and feminist theory.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://bookofbadarguments.com" target="_blank" rel="noopener">An Illustrated Book of Bad Arguments</a></div>
+          <div class="r-author">Ali Almossawi · Full text free at bookofbadarguments.com</div>
+          <div class="r-note">Nineteen common logical fallacies — straw man, false dilemma, ad hominem, slippery slope — illustrated with memorable animal characters and clear explanations. Deceptively simple and immediately useful. <em>Read it once, then keep it as a field guide for spotting bad reasoning in product meetings, online debates, and your own internal arguments.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Sophie's World</div>
+          <div class="r-author">Jostein Gaarder</div>
+          <div class="r-note">A novel that is also a history of Western philosophy — from Socrates to Sartre with unusual elegance. An ideal map before the territory if you haven't had a formal philosophy background.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://philosophybites.com" target="_blank" rel="noopener">Philosophy Bites</a></div>
+          <div class="r-author">philosophybites.com · Free archive</div>
+          <div class="r-note">Short (15–20 min), rigorous interviews with major philosophers on single topics. Start with: personal identity (Derek Parfit), moral luck (Thomas Nagel), and the epistemology of testimony. Vast free archive.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.hilobrow.com/tag/partially-examined-life/" target="_blank" rel="noopener">The Partially Examined Life</a></div>
+          <div class="r-author">partiallyexaminedlife.com · Free episodes</div>
+          <div class="r-note">Philosophers reading and debating primary texts together — with humor and genuine disagreement. A good way to encounter Hegel, Wittgenstein, or Nietzsche without the isolation of reading alone.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://plato.stanford.edu" target="_blank" rel="noopener">Stanford Encyclopedia of Philosophy</a></div>
+          <div class="r-author">plato.stanford.edu · Free</div>
+          <div class="r-note">The gold standard reference for philosophical topics — peer-reviewed, rigorously maintained, completely free. Any time a philosopher or concept confuses you, start here before Wikipedia.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="thread-note">
+      <strong>Behavioral Economics — a sub-section</strong>
+      Classical economics assumed humans are rational actors who optimize for self-interest. Behavioral economics shows we are not — and maps exactly how we aren't. This is not merely an academic point. Understanding cognitive bias is self-defense: against manipulative product design, financial decisions made under stress, and the stories we tell ourselves. These three books form the essential core.
+    </div>
+
+    <div class="resources" style="margin-top: 24px;">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Thinking, Fast and Slow</div>
+          <div class="r-author">Daniel Kahneman</div>
+          <div class="r-note">A Nobel laureate's account of the two systems governing human thought: System 1 (fast, intuitive) and System 2 (slow, deliberate). Kahneman maps cognitive biases — anchoring, loss aversion, the halo effect — with precision and memorable examples. <em>This is the book that makes you realize how much of what feels like reasoning is actually post-hoc rationalization of gut instinct.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Nudge: The Final Edition</div>
+          <div class="r-author">Richard Thaler & Cass Sunstein</div>
+          <div class="r-note">Thaler and Sunstein introduce "choice architecture" — the idea that how options are presented shapes what people choose, regardless of their stated preferences. The word "nudge" has entered mainstream policy and product vocabulary because the insight is so verifiable. <em>The entire field of UX dark patterns is choice architecture deployed against users rather than for them.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Predictably Irrational</div>
+          <div class="r-author">Dan Ariely</div>
+          <div class="r-note">The most accessible entry point into behavioral economics — each chapter tackles a specific irrationality: why "free" is so psychologically powerful, why expectations shape experience, why we value things more once we own them. <em>Read this first if Kahneman feels too dense</em> — it will make you want to go back to the harder book.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Misbehaving: The Making of Behavioral Economics</div>
+          <div class="r-author">Richard Thaler</div>
+          <div class="r-note">Thaler recounts how behavioral economics fought its way into mainstream economics against fierce resistance from rationalist orthodoxy — a reminder that paradigm shifts require not just good evidence but sustained institutional struggle. The book is also quietly funny: his account of being condescended to for pointing out that humans don't behave like textbook models is a study in epistemic stubbornness.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ MODULE 7 ══════════ -->
+  <div class="tab-panel" id="tab-m7">
+    <div class="module-header">
+      <span class="mod-num">07</span>
+      <h2>Synthesis — The Threads That Run Through Everything</h2>
+    </div>
+    <div class="mod-subtitle">Cross-disciplinary · Capstone Reading</div>
+    <div class="mod-framing">
+      These texts refuse to stay in one discipline. They are for after you've worked through the other modules — but many are good entry points too.
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Structure of Scientific Revolutions</div>
+          <div class="r-author">Thomas Kuhn</div>
+          <div class="r-note">Kuhn's concept of "paradigm shifts" — that science doesn't progress linearly but through revolutionary breaks — applies to every field in this syllabus. <em>Essential for understanding why it is so hard to think outside the frameworks you were trained in.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.ways-of-seeing.com" target="_blank" rel="noopener">Ways of Seeing</a></div>
+          <div class="r-author">John Berger · Full text available online</div>
+          <div class="r-note">Starts from painting, ends at advertising, and rewires how you look at images, power, and gender in between. "Men act, women appear" — four decades old and hasn't aged a day.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Atlas of AI</div>
+          <div class="r-author">Kate Crawford</div>
+          <div class="r-note">Crawford maps the full material and political infrastructure behind AI — from lithium mines to data center workers to military contracts. The counterpart to Zuboff: where Zuboff is about data as capital, Crawford is about AI as empire.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Dispossessed</div>
+          <div class="r-author">Ursula K. Le Guin</div>
+          <div class="r-note">Science fiction as philosophy. A physicist moves between two societies built on opposing values — property vs. radical mutual aid. Le Guin does ethics through worldbuilding with more sophistication than most moral philosophy. <em>Read this one slowly.</em></div>
+        </div>
+      </div>
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://aeon.co" target="_blank" rel="noopener">Aeon Magazine</a></div>
+          <div class="r-author">aeon.co · Free</div>
+          <div class="r-note">The best general-readership home for rigorous ideas across philosophy, psychology, science, and culture. Free, browser-based, searchable. A reliable source of quality long-form essays across almost every topic in this syllabus.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://themarginalian.org" target="_blank" rel="noopener">The Marginalian</a></div>
+          <div class="r-author">Maria Popova — themarginalian.org · Free</div>
+          <div class="r-note">Popova curates connections between literature, science, philosophy, and art with unusual intelligence. Use as a weekly supplement — her essay archives on consciousness, creativity, and meaning are genuinely rich.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ MODULE 8 ══════════ -->
+  <div class="tab-panel" id="tab-m8">
+    <div class="module-header">
+      <span class="mod-num">08</span>
+      <h2>Money, Power & Financial Literacy</h2>
+    </div>
+    <div class="mod-subtitle">Personal Finance · Investing · Women & Wealth · The Psychology of Money</div>
+    <div class="mod-framing">
+      Financial literacy is not a neutral skill — it is a form of power, and women have been systematically excluded from it. This module treats money not just as a practical matter but as a philosophical and feminist one: who controls capital, who builds wealth, and what does financial independence actually make possible?
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Psychology of Money</div>
+          <div class="r-author">Morgan Housel</div>
+          <div class="r-note">The best entry point into financial thinking for someone who is more interested in ideas than spreadsheets. Housel argues that financial success has less to do with knowledge and more to do with behavior, patience, and knowing yourself. Connects directly to the psychology modules — the chapters on ego, greed, and the "moving goalposts" of enough are essential reading.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Clever Girl Finance: Ditch Debt, Save Money and Build Real Wealth</div>
+          <div class="r-author">Bola Sokunbi</div>
+          <div class="r-note">Written by a Nigerian-American woman who noticed that almost no financial books were written for women of color. Covers budgeting, debt, saving, and investing with a warm, non-judgmental tone. <em>Practical and empowering — pairs naturally with the feminist theory in Module 04.</em> The accompanying website, clevergirlfinance.com, is a free ongoing resource.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">I Will Teach You to Be Rich</div>
+          <div class="r-author">Ramit Sethi</div>
+          <div class="r-note">A blunt, practical 6-week program for automating savings, optimizing credit, and investing without guilt. His emphasis on building systems rather than relying on willpower is exactly the right frame for a busy professional. Updated second edition covers high-cost-of-living cities and current realities.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Your Money or Your Life</div>
+          <div class="r-author">Vicki Robin & Joe Dominguez</div>
+          <div class="r-note">A classic that reframes money as "life energy" — the hours of your finite existence exchanged for it. Asks the uncomfortable question: is what you're spending your life on actually worth it? Unusually philosophical for a personal finance book, and a natural companion to the spirituality and diaspora modules — all three ask versions of the same question about what a good life requires.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">We Should All Be Millionaires</div>
+          <div class="r-author">Rachel Rodgers</div>
+          <div class="r-note">A Black woman lawyer-turned-entrepreneur argues that wealth is not just a personal goal but a feminist and political one — that women building financial power changes what is possible for their families, communities, and society. Confronts the cultural conditioning that makes many women, especially immigrant and women of color, ambivalent about wealth-building.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Simple Path to Wealth</div>
+          <div class="r-author">JL Collins</div>
+          <div class="r-note">The clearest, most jargon-free account of index fund investing available. Collins argues for radical simplicity: one or two funds, long time horizon, leave it alone. Originally written as a series of letters to his daughter. An antidote to the complexity the financial industry manufactures to justify its fees.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Pound Foolish: Exposing the Dark Side of the Personal Finance Industry</div>
+          <div class="r-author">Helaine Olen</div>
+          <div class="r-note">A financial journalist dismantles the self-help finance industry — showing how much of it profits from anxiety rather than solving it, and how systemic economic inequality cannot be fixed by individual behavior change alone. Essential critical counterweight to the actionable books above. Read this alongside Rodgers and Collins to hold both truths at once.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype website">Website</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.clevergirlfinance.com" target="_blank" rel="noopener">Clever Girl Finance</a></div>
+          <div class="r-author">clevergirlfinance.com · Free</div>
+          <div class="r-note">Free courses, calculators, and articles on every aspect of personal finance for women. One of the most substantive free financial education resources available — not ad-heavy clickbait but genuinely useful content.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype podcast">Podcast</span></div>
+        <div>
+          <div class="r-title"><a href="https://affordanything.com/podcast/" target="_blank" rel="noopener">Afford Anything — Paula Pant</a></div>
+          <div class="r-author">affordanything.com · Free</div>
+          <div class="r-note">Paula Pant's core thesis: you can afford anything, but not everything — so choose deliberately. Her interviews with economists, investors, and psychologists are unusually rigorous for a personal finance podcast. Particularly good on the financial independence / early retirement movement and its philosophical implications.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tab-panel" id="tab-m9">
+    <div class="module-header">
+      <span class="mod-num">09</span>
+      <h2>Caste, Race & the Architecture of Inequality</h2>
+    </div>
+    <div class="mod-subtitle">Anti-caste Thought · Dalit Writing · Race Theory · Structural Inequality</div>
+    <div class="mod-framing">
+      Caste and race are not feelings. They are architectures — systems of enforced hierarchy that organise who gets to live where, learn what, earn how much, and be seen as fully human. This module reads them together without collapsing their differences. For a South Indian woman living in Silicon Valley — where caste operates quietly in hiring, networks, and community — this is among the most personally urgent material in the syllabus.
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.gutenberg.org/ebooks/61962" target="_blank" rel="noopener">Annihilation of Caste</a></div>
+          <div class="r-author">B.R. Ambedkar · 1936 · Free on Project Gutenberg</div>
+          <div class="r-note">The foundational anti-caste text — a speech Ambedkar prepared for a Hindu reform conference that then disinvited him for being too radical. It argues that caste cannot be reformed, only annihilated, because it is not a social practice but a religious doctrine. Ambedkar's argument is careful, devastating, and still largely unrefuted. <em>The most important Indian political text of the 20th century that most school curricula refuse to teach.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Caste: The Origins of Our Discontents</div>
+          <div class="r-author">Isabel Wilkerson</div>
+          <div class="r-note">A Pulitzer Prize-winning journalist argues that what America calls "race" is in fact a caste system — an artificial hierarchy enforced through law, violence, and social ritual. Wilkerson draws parallels between the American racial order, India's caste system, and Nazi Germany, identifying eight shared "pillars of caste." <em>Connects the hierarchies you grew up inside with the one you now inhabit professionally.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Caste Matters</div>
+          <div class="r-author">Suraj Yengde</div>
+          <div class="r-note">Yengde — a first-generation Dalit scholar with affiliations at Harvard and Oxford — writes from inside the system he anatomizes: the daily humiliations of Dalit life, the glass ceiling in institutions, and the dynamics of tokenism within the Dalit community. His work explicitly connects caste to Silicon Valley, tracing how upper-caste networks travel with migration under the name of "merit."</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Coming Out as Dalit</div>
+          <div class="r-author">Yashica Dutt</div>
+          <div class="r-note">A journalist recounts spending years passing as upper caste in Delhi's media world and then in New York — until she came out publicly and her life changed. The memoir captures what theoretical texts cannot: the psychological cost of concealment and what it takes to reclaim an identity that has been weaponised against you.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The Doctor and the Saint (Introduction to Annihilation of Caste)</div>
+          <div class="r-author">Arundhati Roy · Verso Books, 2017</div>
+          <div class="r-note">Roy's 179-page introduction to the Verso edition of Annihilation of Caste traces the relationship and rupture between Gandhi and Ambedkar, arguing that Gandhi's version of caste reform was designed to preserve Hindu social order while appearing to challenge it. Her reading of Gandhi is controversial, but the argument is meticulous — and it reframes the entire independence movement from the perspective of those for whom it did not mean liberation.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">Why I Am Not a Hindu</div>
+          <div class="r-author">Kancha Ilaiah Shepherd</div>
+          <div class="r-note">A political scientist from a shepherd-caste background argues that Dalits and OBCs don't share the cultural world of upper-caste Hinduism — that they have distinct foodways, work cultures, and relationships to nature and death. A provocative reading of caste not as hierarchy within a shared culture, but as the coexistence of fundamentally different civilizations.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype book">Book</span></div>
+        <div>
+          <div class="r-title">The New Jim Crow: Mass Incarceration in the Age of Colorblindness</div>
+          <div class="r-author">Michelle Alexander</div>
+          <div class="r-note">Alexander argues that the US mass incarceration system functions as a racial caste system — a mechanism for social control of Black Americans that reconstituted itself after the formal end of Jim Crow segregation. Her legal analysis is rigorous, her prose is urgent. <em>Read alongside Wilkerson and Ruha Benjamin (Module 03) to see the three layers of the same structure: historical hierarchy, contemporary algorithm, and punitive state apparatus.</em></div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype essay">Essay</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.theatlantic.com/magazine/archive/2014/06/the-case-for-reparations/361631/" target="_blank" rel="noopener">The Case for Reparations</a></div>
+          <div class="r-author">Ta-Nehisi Coates · The Atlantic, 2014 · Free online</div>
+          <div class="r-note">One of the most important pieces of American journalism of the 21st century. Coates traces the specific mechanisms — redlining, contract buying, predatory lending — by which Black wealth was systematically extracted over generations. The argument for reparations is not about guilt but about accounting: what was taken, when, by whom, and what remains.</div>
+        </div>
+      </div>
+      <div class="resource">
+        <div><span class="rtype video">Video</span></div>
+        <div>
+          <div class="r-title"><a href="https://www.youtube.com/watch?v=6NwtnJFpqNk" target="_blank" rel="noopener">Ambedkar's Vision of Justice — lecture series</a></div>
+          <div class="r-author">YouTube · Savari and Round Table India channels</div>
+          <div class="r-note">Round Table India and Savari are two of the best online spaces for contemporary Dalit-Bahujan intellectual discourse in English. Search both channels for lectures on Ambedkar's philosophy, debates on caste and capitalism, and discussions of caste in the diaspora. Essential for understanding how this conversation continues today.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ SUBMIT PANEL ══════════ -->
+  <div class="tab-panel" id="tab-submit">
+    <div class="module-header">
+      <span class="mod-num">✦</span>
+      <h2>Suggest a Resource</h2>
+    </div>
+    <div class="mod-subtitle">This syllabus is a living document</div>
+
+    <p class="submit-intro">
+      Know a book, paper, podcast, or piece of music that belongs here? Suggestions that sit at unexpected intersections — or that come from outside the Western canon — are especially welcome.
+    </p>
+
+    <div id="form-wrap">
+      <form class="submit-form" action="https://syllabus-form.asriram.workers.dev" method="POST" id="suggest-form">
+        <div class="form-field">
+          <label for="title">Title *</label>
+          <input type="text" id="title" name="title" placeholder="e.g. Ways of Seeing" required>
+        </div>
+        <div class="form-field">
+          <label for="author">Author / Creator</label>
+          <input type="text" id="author" name="author" placeholder="e.g. John Berger">
+        </div>
+        <div class="form-field">
+          <label for="type">Type *</label>
+          <select id="type" name="type" required>
+            <option value="" disabled selected>Select a type</option>
+            <option>Book</option>
+            <option>Paper</option>
+            <option>Video / Lecture</option>
+            <option>Podcast</option>
+            <option>Music</option>
+            <option>Website / Essay</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="module">Suggested Module</label>
+          <select id="module" name="module">
+            <option value="" disabled selected>Which module fits?</option>
+            <option>01 — Music, Cognition & Consciousness</option>
+            <option>02 — The Examined Self</option>
+            <option>03 — The Machine & The Human</option>
+            <option>04 — Feminist Thought</option>
+            <option>05 — Identity, Diaspora & the Translated Self</option>
+            <option>06 — How to Think</option>
+            <option>07 — Synthesis</option>
+            <option>08 — Money, Power & Financial Literacy</option>
+            <option>09 — Caste, Race &amp; the Architecture of Inequality</option>
+            <option>Not sure / New module</option>
+          </select>
+        </div>
+        <div class="form-field full">
+          <label for="why">Why does it belong here? *</label>
+          <textarea id="why" name="why" placeholder="What makes this worth adding — and what thread does it connect to?" required></textarea>
+        </div>
+        <div class="form-field full">
+          <label for="link">Link (optional)</label>
+          <input type="url" id="link" name="link" placeholder="https://...">
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="submit-btn">Submit suggestion</button>
+          <span class="submit-note">Reviewed before being added.<br>No account needed.</span>
+        </div>
+      </form>
+      <div class="form-success" id="form-success">
+        ✦ &nbsp; Thank you — your suggestion has been received.
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+  // Tab switching
+  function switchTab(id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector(`[data-tab="${id}"]`).classList.add('active');
+    document.getElementById(`tab-${id}`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('.tab-btn, .map-card').forEach(el => {
+    el.addEventListener('click', () => switchTab(el.dataset.tab));
+  });
+
+  // Notion form submission via Cloudflare Worker
+  const form = document.getElementById('suggest-form');
+  const success = document.getElementById('form-success');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = {
+        title: form.querySelector('[name="title"]').value,
+        author: form.querySelector('[name="author"]').value,
+        type: form.querySelector('[name="type"]').value,
+        module: form.querySelector('[name="module"]').value,
+        why: form.querySelector('[name="why"]').value,
+        link: form.querySelector('[name="link"]').value,
+      };
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          alert('Something went wrong — please try again.');
+        }
+      } catch {
+        alert('Something went wrong — please try again.');
+      }
+    });
+  }
+</script>
+</body>
+</html>
