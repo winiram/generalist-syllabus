@@ -199,7 +199,7 @@
   }
 
   /* ── PANELS ── */
-  .tab-panel { display: none; padding-top: 60px; }
+  .tab-panel { display: none; padding-top: 32px; }
   .tab-panel.active { display: block; }
 
   /* ── INTRO PANEL ── */
@@ -1615,7 +1615,9 @@
     activeBtn.classList.add('active');
     document.getElementById(`tab-${id}`).classList.add('active');
     activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const tabsOuter = document.querySelector('.tabs-outer');
+    const tabsTop = tabsOuter.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: tabsTop, behavior: 'smooth' });
   }
 
   document.querySelectorAll('.tab-btn, .map-card').forEach(el => {
